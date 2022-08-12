@@ -74,27 +74,10 @@ function FoodInProgress() {
     }
   }
 
-  // localStorage.setItem('doneRecipes', JSON.stringify([{ id: '15997',
-  // type: 'drink',
-  // category: 'drink',
-  // alcoholicOrNot: 'Optional alcohol',
-  // name: 'GG',
-  // image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
-  // doneDate: 'quando-a-receita-foi-concluida',
-  // tags: ['tag'] }, { id: '53060',
-  // type: 'food',
-  // nationality: 'Croatian',
-  // category: 'Side',
-  // alcoholicOrNot: 'Non alcoholic',
-  // name: 'Burek',
-  // image: 'https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg',
-  // doneDate: 'quando-a-receita-foi-concluida',
-  // tags: ['tag'] }]));
-
   return (
     <div className='bg-stone-100 h-screen'>
       <h1 data-testid="recipe-title" className='bg-stone-500 p-4 text-white font-alice text-3xl text-center'>{dataInProgress.strMeal} </h1>
-      <div className='flex md:flex-row flex-col items-center md:items-start p-6 justify-center'>
+      <div className='flex md:flex-row flex-col items-center md:items-start p-6 justify-center mb-12'>
       <img
       className='h-52 rounded-lg'
         width={ 200 }
@@ -152,7 +135,7 @@ function FoodInProgress() {
       <div className='flex justify-center mb-10'>
       <button
         type="button"
-        className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-green-500 hover:duration-500 justify-center pointer'
+        className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer'
         data-testid="share-btn"
         onClick={ () => {
           const url = `http://localhost:3000/foods/${dataInProgress.idMeal}`;

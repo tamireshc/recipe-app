@@ -79,7 +79,7 @@ function DrinkInProgress() {
   return (
     <div className='bg-stone-100 h-screen'>
        <h1 data-testid="recipe-title" className='bg-stone-400 p-4 text-white font-alice text-3xl text-center'>{dataInProgress.strDrink}</h1>
-       <div className='flex flex-col md:flex-row p-6 justify-center items-center'>
+       <div className='flex flex-col md:flex-row p-6 justify-center items-center mb-12'>
       <img
       className='h-52 rounded-lg'
         width={ 200 }
@@ -88,11 +88,11 @@ function DrinkInProgress() {
         data-testid="recipe-photo"
         a
       />
-     <div className='pl-8 pr-8'>
+     <div className='sm:pl-8 sm:pr-8'>
      <p data-testid="recipe-category" className='my-3 text-center mb:text-justify underline'>{dataInProgress.strCategory}</p>
      <h4 className='text-stone-700 font-light text-xl mb-3'>Ingredients</h4>
      <div className='flex'>
-      <div className='mb-3 mr-5'>
+      <div className='mb-3 mr-5 '>
       
       {ingredients && ingredients.map((ingredient, index) => (
         <div key={ index }>
@@ -133,7 +133,7 @@ function DrinkInProgress() {
       <div className='flex justify-center mt-6'>
       <button
         type="button"
-        className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-green-500 hover:duration-500 justify-center pointer'
+        className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer'
 
         data-testid="share-btn"
         onClick={ () => {
@@ -145,7 +145,7 @@ function DrinkInProgress() {
         Compartilhar
 
       </button>
-      <button type="button" className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-green-500 hover:duration-500 justify-center pointer'
+      <button type="button" className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer'
  data-testid="favorite-btn">Favoritar</button>
       {linkCopy && <p>Link copied!</p>}
       <button

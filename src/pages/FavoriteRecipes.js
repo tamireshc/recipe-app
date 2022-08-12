@@ -88,10 +88,11 @@ function FavoriteRecipes() {
       </div>
       {msgCopied && <p className='text-center text-2xl text-red-700'>Link copied!</p>}
   
-      <div className='flex flex-wrap justify-center bg-stone-100 px-4 '>
+      <div className='flex flex-wrap justify-center bg-stone-100 px-4 mb-16'>
         {favoriteRecipes && favoriteRecipes.map((item, index) => (
-          <div key={ item.id } className="card bg-white rounded-lg p-4 text-center">
-            <div className='flex flex-col justify-center items-center mx-auto'>
+          <div key={ item.id } className="card bg-white rounded-lg p-4 ptext-center flex justify-center">
+            <div className='flex flex-wrap sm:flex-col justify-center items-center mx-auto'>
+              <div>
             <Link
                 to={ `/${item.image.includes('meals')
                   ? 'foods' : 'drinks'}/${item.id}` }
@@ -103,7 +104,8 @@ function FavoriteRecipes() {
                   ? item.alcoholicOrNot
                   : ` ᗒ ${item.nationality} - ${item.category}`}
               </p>
-             
+              </div>
+             <div className='flex flex-wrap justify-center md:block mb-2'>
               <button
                 type="button"
                 className='flex bg-stone-400 py-2 m-2 rounded-lg w-96 hover:bg-stone-500 hover:duration-500 justify-center pointer '
@@ -138,15 +140,15 @@ function FavoriteRecipes() {
                 />
 
               </button>
-
+              </div>
             </div>
            
-            <div>
+            <div className=''>
               <Link
                 to={ `/${item.image.includes('meals')
                   ? 'foods' : 'drinks'}/${item.id}` }
               >
-                <div className='flex justify-center items-center'>
+                <div className='px sm:px-0'>
                 <img
                 className='rounded-lg hover:scale-105 hover:duration-500'
                   src={ item.image }

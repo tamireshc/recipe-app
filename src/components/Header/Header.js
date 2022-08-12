@@ -23,7 +23,7 @@ function Header({ title, profileIcon, searchIcon }) {
         </div>
         <div className="page-title-container">
           <h1
-          className='font-alice text-5xl text-white hover:scale-105  hover:duration-500'
+          className='font-alice md:text-5xl text-3xl text-white hover:scale-105  hover:duration-500'
             data-testid="page-title"
           >
             { title }

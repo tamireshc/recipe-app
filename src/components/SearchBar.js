@@ -41,8 +41,8 @@ function SearchBar({ setToggleInput }) {
           value="ingredient"
           onClick={ (e) => setSelectedRadio(e.target.value) }
         />
-         <label htmlFor="ingredient-search" className=' text-xl mt-4'>Ingredient</label>
-      <label htmlFor="name-search" className=' text-xl'>
+         <label htmlFor="ingredient-search" className=' sm:text-xl text-sm mt-4'>Ingredient</label>
+      <label htmlFor="name-search" className=' sm:text-xl text-sm '>
         <input
           className="radio-element"
           name="search"
@@ -54,7 +54,7 @@ function SearchBar({ setToggleInput }) {
           onClick={ (e) => setSelectedRadio(e.target.value) }
         /> Name
       </label>
-      <label htmlFor="first-letter-search" className=' text-xl'>
+      <label htmlFor="first-letter-search" className=' sm:text-xl text-sm '>
         <input
           className="radio-element"
           name="search"
