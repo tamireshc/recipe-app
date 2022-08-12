@@ -25,12 +25,12 @@ function Login() {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center bg-stone-400 h-screen">
+    <section className="flex flex-col items-center justify-center bg-stone-400 h-screen login-bg">
       <div className="flex justify-center items-center">
         <img src={ cook } className="h-20" />
-        <h2 className="font-mono text-3xl text-white font-bold ml-4 mt-1">ONLINE COOK</h2>
       </div>
       <form className="flex flex-col bg-white p-8 items-center w-5/6 md:w-1/2 lg:w-1/3 lg:p-16 rounded-lg mt-3">
+      <h2 className="font-alice text-3xl text-stone-700 font-bold mb-8">ONLINE COOK</h2>
         <input
           className="border border-stone-600  rounded-md px-4 py-1 focus:border-none mb-4 w-full"
           placeholder="Email"
