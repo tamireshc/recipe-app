@@ -15,6 +15,7 @@ function RecipeDetails() {
   const [receitaEmProgresso, setReceitaEmProgresso] = useState(false);
   const [favoritada, setFavoritada] = useState(false);
   const [copiado, setCopiado] = useState(false);
+  const [linkFav, setLinkFav] = useState(false);
   const history = useHistory();
   const comida = history.location.pathname.includes('foods');
   const id = comida ? history.location.pathname.split('/foods/').join('')
@@ -129,11 +130,17 @@ function RecipeDetails() {
 
   }
 
+  const addFav = () =>{
+    setLinkFav(true)
+  }
+
   return (
     <section className="bg-stone-100">
       <div className='bg-stone-500 h-18 text-white '>
       <h2 data-testid="recipe-title" className="text-3xl font-alice text-center py-4">{comida ? rd.strMeal : rd.strDrink}</h2>
       </div>
+      {copiado && <p className='text-red-500 text-2xl text-center'>Link copied!</p>}
+      {linkFav && <p className='text-center text-blue-600 text-2xl'>Adicionado aos favoritos</p>}
       <div className='flex justify-center items-center my-6 flex-col md:flex-row'>
       <img
         data-testid="recipe-photo"
@@ -236,13 +243,17 @@ function RecipeDetails() {
             type="button"
             className="bg-stone-500 p-2 m-2 rounded-lg w-24 hover:bg-stone-600 hover:duration-500 text-white"
             data-testid="favorite-btn"
-            onClick={ favoriteClick }
+            onClick={()=>{
+              addFav()
+              favoriteClick()
+            }  }
             src={ favoritada ? blackHeartIcon : whiteHeartIcon } // colocando src no botão pra passar no teste...?
             alt={ favoritada ? 'Full Heart Button' : 'Empty Heart Buton' }
+
           >
             Favoritar
           </button>
-          {copiado && <p className='text-red-500'>Link copied!</p>}
+          
         </div>
        
       </div>

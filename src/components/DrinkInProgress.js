@@ -14,6 +14,7 @@ function DrinkInProgress() {
   } = useContext(recipesContext);
   const [linkCopy, setLinkCopy] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [linkFav, setLinkFav] = useState(false);
   const history = useHistory();
 
   const handleChange = (e) => {
@@ -74,100 +75,130 @@ function DrinkInProgress() {
     }
    
   }
-
+  const addFav = () =>{
+    setLinkFav(true)
+  }
 
   return (
-    <div className='bg-stone-100 h-screen'>
-       <h1 data-testid="recipe-title" className='bg-stone-400 p-4 text-white font-alice text-3xl text-center'>{dataInProgress.strDrink}</h1>
-       <div className='flex flex-col md:flex-row p-6 justify-center items-center mb-12'>
-      <img
-      className='h-52 rounded-lg'
-        width={ 200 }
-        src={ dataInProgress.strDrinkThumb }
-        alt={ dataInProgress.strDrink }
-        data-testid="recipe-photo"
-        a
-      />
-     <div className='sm:pl-8 sm:pr-8'>
-     <p data-testid="recipe-category" className='my-3 text-center mb:text-justify underline'>{dataInProgress.strCategory}</p>
-     <h4 className='text-stone-700 font-light text-xl mb-3'>Ingredients</h4>
-     <div className='flex'>
-      <div className='mb-3 mr-5 '>
-      
-      {ingredients && ingredients.map((ingredient, index) => (
-        <div key={ index }>
-          <label
-            htmlFor={ ingredient.ingredient }
-            data-testid={ `${index}-ingredient-step` }
-            style={ {
-              textDecoration: ingredient.done ? 'line-through' : 'none',
-            } }
+    <div className="bg-stone-100 h-screen">
+      <h1
+        data-testid="recipe-title"
+        className="bg-stone-400 p-4 text-white font-alice text-3xl text-center"
+      >
+        {dataInProgress.strDrink}
+      </h1>
+      {linkCopy && (
+        <p className="text-center text-red-700 text-2xl"> Link copied!</p>
+      )}
+      {linkFav && (
+        <p className="text-center text-blue-600 text-2xl">
+          Adicionado aos favoritos
+        </p>
+      )}
+      <div className="flex flex-col md:flex-row p-6 justify-center items-center mb-12">
+        <img
+          className="h-52 rounded-lg"
+          width={200}
+          src={dataInProgress.strDrinkThumb}
+          alt={dataInProgress.strDrink}
+          data-testid="recipe-photo"
+          a
+        />
+        <div className="sm:pl-8 sm:pr-8">
+          <p
+            data-testid="recipe-category"
+            className="my-3 text-center mb:text-justify underline"
           >
-            <input
-              type="checkbox"
-              className='mr-2 text-lg'
-              id={ ingredient.ingredient }
-              name={ ingredient.ingredient }
-              value={ ingredient.ingredient }
-              checked={ ingredient?.isChecked || false }
-              onChange={ handleChange }
-            />
-            {ingredient.ingredient}→
-          </label>
+            {dataInProgress.strCategory}
+          </p>
+          <h4 className="text-stone-700 font-light text-xl mb-3">
+            Ingredients
+          </h4>
+          <div className="flex">
+            <div className="mb-3 mr-5 ">
+              {ingredients &&
+                ingredients.map((ingredient, index) => (
+                  <div key={index}>
+                    <label
+                      htmlFor={ingredient.ingredient}
+                      data-testid={`${index}-ingredient-step`}
+                      style={{
+                        textDecoration: ingredient.done
+                          ? "line-through"
+                          : "none",
+                      }}
+                    >
+                      <input
+                        type="checkbox"
+                        className="mr-2 text-lg"
+                        id={ingredient.ingredient}
+                        name={ingredient.ingredient}
+                        value={ingredient.ingredient}
+                        checked={ingredient?.isChecked || false}
+                        onChange={handleChange}
+                      />
+                      {ingredient.ingredient}→
+                    </label>
+                  </div>
+                ))}
+            </div>
+            <div className="flex flex-col">
+              {measures &&
+                measures.map((item, index) => (
+                  <span
+                    key={index}
+                    data-testid={`${index}-ingredient-name-and-measure`}
+                  >
+                    {item.measure}
+                  </span>
+                ))}
+            </div>
+          </div>
+          <span className="text-stone-700 font-light text-xl mb-4">
+            Instructions
+          </span>
+          <p data-testid="instructions">{dataInProgress.strInstructions}</p>
+          <div className="flex justify-center mt-6">
+            <button
+              type="button"
+              className="flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer text-white"
+              data-testid="share-btn"
+              onClick={() => {
+                const url = `http://localhost:3000/drinks/${dataInProgress.idDrink}`;
+                copy(url);
+                setLinkCopy(true);
+              }}
+            >
+              Compartilhar
+            </button>
+            <button
+              type="button"
+              className="flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer text-white"
+              data-testid="favorite-btn"
+              onClick={addFav}
+            >
+              Favoritar
+            </button>
+
+            <button
+              type="button"
+              className="flex bg-green-400 py-2 m-2 rounded-lg w-28 hover:bg-green-500 hover:duration-500 justify-center pointer disabled:bg-red-100 disabled:cursor-not-allowed "
+              data-testid="finish-recipe-btn"
+              onClick={() => {
+                history.push("/done-recipes");
+                saveRecipeDoneInLocalStorage();
+              }}
+              disabled={isDisabled}
+            >
+              Finish Recipe
+            </button>
+          </div>
         </div>
-      ))}
       </div>
-      <div className='flex flex-col'>
-      {measures && measures.map((item, index) => (
-        <span
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {item.measure}
-        </span>
-      ))}
+      <div className="flex justify-center">
+        <Footer />
       </div>
-</div>
-      <span className='text-stone-700 font-light text-xl mb-4'>Instructions</span>
-      <p data-testid="instructions">{dataInProgress.strInstructions}</p>
-      <div className='flex justify-center mt-6'>
-      <button
-        type="button"
-        className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer'
-
-        data-testid="share-btn"
-        onClick={ () => {
-          const url = `http://localhost:3000/drinks/${dataInProgress.idDrink}`;
-          copy(url);
-          setLinkCopy(true);
-        } }
-      >
-        Compartilhar
-
-      </button>
-      <button type="button" className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer'
- data-testid="favorite-btn">Favoritar</button>
-      {linkCopy && <p>Link copied!</p>}
-      <button
-        type="button"
-        className='flex bg-green-400 py-2 m-2 rounded-lg w-28 hover:bg-green-500 hover:duration-500 justify-center pointer disabled:bg-red-100 disabled:cursor-not-allowed'
-        data-testid="finish-recipe-btn"
-        onClick={ () => {
-          history.push('/done-recipes')
-          saveRecipeDoneInLocalStorage()
-         }}
-        disabled={ isDisabled }
-      >
-        Finish Recipe
-      </button>
     </div>
-    </div>
-      </div>
-      <div className='flex justify-center'>
-     
-     <Footer/>
-   </div>
-   </div>
   );
 }
 

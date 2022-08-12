@@ -128,40 +128,7 @@ function Recipes() {
                 {comida ? item.strMeal : item.strDrink}
               </p>
             </Link>))}</section>
-      {/* {filtered !== [] ? filtered.filter((it) => filtered.indexOf(it) <= onze) // mostra os 12 primeiros, e condicionalmente renderiza a lista das categorias ou a lista da busca
-        .map((item, i) => ( // cria os 'cards'
-          <Link
-            key={ i }
-            data-testid={ `${i}-recipe-card` }
-            to={ comida ? `/foods/${item.idMeal}` : `/drinks/${item.idDrinks}` }
-          >
-            <img
-              width="200"
-              src={ comida ? item.strMealThumb : item.strDrinkThumb }
-              data-testid={ `${i}-card-img` }
-              alt={ comida ? item.strMeal : item.strDrink }
-            />
-            <p data-testid={ `${i}-card-name` }>
-              {comida ? item.strMeal : item.strDrink}
-            </p>
-          </Link>))
-        : recipes.slice(0, onze) // mostra os 12 primeiros
-          .map((item, i) => ( // cria os 'cards'
-            <Link
-              key={ i }
-              data-testid={ `${i}-recipe-card` }
-              to={ comida ? `/foods/${item.idMeal}` : `/drinks/${item.idDrinks}` }
-            >
-              <img
-                width="200"
-                src={ comida ? item.strMealThumb : item.strDrinkThumb }
-                data-testid={ `${i}-card-img` }
-                alt={ comida ? item.strMeal : item.strDrink }
-              />
-              <p data-testid={ `${i}-card-name` }>
-                {comida ? item.strMeal : item.strDrink}
-              </p>
-            </Link>))} */}
+    
     </div>);
 }
 

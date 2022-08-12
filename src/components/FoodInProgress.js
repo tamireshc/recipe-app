@@ -13,6 +13,7 @@ function FoodInProgress() {
     measures,
   } = useContext(recipesContext);
   const [linkCopy, setLinkCopy] = useState(false);
+  const [linkFav, setLinkFav] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const history = useHistory();
 
@@ -74,9 +75,15 @@ function FoodInProgress() {
     }
   }
 
+  const addFav = () =>{
+    setLinkFav(true)
+  }
+
   return (
     <div className='bg-stone-100 h-screen'>
       <h1 data-testid="recipe-title" className='bg-stone-500 p-4 text-white font-alice text-3xl text-center'>{dataInProgress.strMeal} </h1>
+      {linkCopy && <p className='text-center text-red-700 text-2xl'> Link copied!</p>}
+      {linkFav && <p className='text-center text-blue-600 text-2xl'>Adicionado aos favoritos</p>}
       <div className='flex md:flex-row flex-col items-center md:items-start p-6 justify-center mb-12'>
       <img
       className='h-52 rounded-lg'
@@ -88,7 +95,7 @@ function FoodInProgress() {
       />
       
       
-      {linkCopy && <p>Link copied!</p>}
+      
       <div className='px-8'>
       <p data-testid="recipe-category" className='font-alice text-xl mb-3'>ᐅ {dataInProgress.strCategory}</p>
       <h4 className='text-stone-700 font-light text-xl mb-3'>Ingredients</h4>
@@ -135,7 +142,7 @@ function FoodInProgress() {
       <div className='flex justify-center mb-10'>
       <button
         type="button"
-        className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer'
+        className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer text-white'
         data-testid="share-btn"
         onClick={ () => {
           const url = `http://localhost:3000/foods/${dataInProgress.idMeal}`;
@@ -148,9 +155,9 @@ function FoodInProgress() {
       </button>
       <button
         type="button"
-        className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer'
-
+        className='flex bg-stone-400 py-2 m-2 rounded-lg w-28 hover:bg-stone-500 hover:duration-500 justify-center pointer text-white'
         data-testid="favorite-btn"
+        onClick={addFav}
       >
         Favoritar
       </button>
