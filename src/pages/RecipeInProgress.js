@@ -1,26 +1,22 @@
-import React, { useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import FoodInProgress from '../components/FoodInProgress';
-import DrinkInProgress from '../components/DrinkInProgress';
+import React, { useEffect, useContext } from "react";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+import FoodInProgress from "../components/FoodInProgress";
+import DrinkInProgress from "../components/DrinkInProgress";
 
-import recipesContext from '../context/context';
+import recipesContext from "../context/context";
 
 function RecipeInProgress({ match }) {
-  const {
-    dataInProgress,
-    setDataInProgress,
-    setIngredients,
-    setMeasures,
-  } = useContext(recipesContext);
+  const { dataInProgress, setDataInProgress, setIngredients, setMeasures } =
+    useContext(recipesContext);
   const history = useHistory();
-  const foods = history.location.pathname.includes('foods');
+  const foods = history.location.pathname.includes("foods");
 
   useEffect(() => {
     const fetchFoods = async () => {
       try {
         const endpoint = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${match.params.id}`,
+          `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${match.params.id}`
         );
         const response = await endpoint.json();
         setDataInProgress(response.meals[0]);
@@ -28,7 +24,7 @@ function RecipeInProgress({ match }) {
         console.log(error);
       }
     };
-    if (match.path.includes('foods')) {
+    if (match.path.includes("foods")) {
       return fetchFoods();
     }
   }, [match.path, match.params.id, setDataInProgress]);
@@ -37,7 +33,7 @@ function RecipeInProgress({ match }) {
     const fetchDrinks = async () => {
       try {
         const endpoint = await fetch(
-          `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${match.params.id}`,
+          `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${match.params.id}`
         );
         const response = await endpoint.json();
         setDataInProgress(response.drinks[0]);
@@ -45,7 +41,7 @@ function RecipeInProgress({ match }) {
         console.log(error);
       }
     };
-    if (match.path.includes('drinks')) {
+    if (match.path.includes("drinks")) {
       return fetchDrinks();
     }
   }, [match.path, match.params.id, setDataInProgress]);
@@ -53,7 +49,7 @@ function RecipeInProgress({ match }) {
   useEffect(() => {
     const organizeIngredients = () => {
       const ingredientsFiltered = Object.entries(dataInProgress)
-        .filter(([key, value]) => key.includes('Ingredient') && value)
+        .filter(([key, value]) => key.includes("Ingredient") && value)
         .map(([key, value]) => ({
           ingredient: value,
           done: false,
@@ -66,11 +62,10 @@ function RecipeInProgress({ match }) {
     }
   }, [dataInProgress, setIngredients]);
 
-
   useEffect(() => {
     const organizeMeasures = () => {
       const measuresFiltered = Object.entries(dataInProgress)
-        .filter(([key, value]) => key.includes('Measure') && value)
+        .filter(([key, value]) => key.includes("Measure") && value)
         .map(([key, value]) => ({
           measure: value,
           key,

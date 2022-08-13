@@ -1,17 +1,13 @@
-import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import recipesContext from '../context/context';
-import Footer from './Footer';
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+import recipesContext from "../context/context";
+import Footer from "./Footer";
 
-const copy = require('clipboard-copy');
+const copy = require("clipboard-copy");
 
 function DrinkInProgress() {
-  const {
-    dataInProgress,
-    ingredients,
-    setIngredients,
-    measures,
-  } = useContext(recipesContext);
+  const { dataInProgress, ingredients, setIngredients, measures } =
+    useContext(recipesContext);
   const [linkCopy, setLinkCopy] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [linkFav, setLinkFav] = useState(false);
@@ -19,16 +15,17 @@ function DrinkInProgress() {
 
   const handleChange = (e) => {
     const { name, checked } = e.target;
-    const tempIngredients = ingredients.map(
-      (ingredient) => (ingredient.ingredient === name
-        ? { ...ingredient, isChecked: checked, done: checked } : ingredient),
+    const tempIngredients = ingredients.map((ingredient) =>
+      ingredient.ingredient === name
+        ? { ...ingredient, isChecked: checked, done: checked }
+        : ingredient
     );
     setIngredients(tempIngredients);
     const doneIngredients = [];
-    tempIngredients.map(
-      (ingredient) => (
-        ingredient.done === true ? doneIngredients.push(ingredient.ingredient) : null
-      ),
+    tempIngredients.map((ingredient) =>
+      ingredient.done === true
+        ? doneIngredients.push(ingredient.ingredient)
+        : null
     );
     if (doneIngredients.length === tempIngredients.length) {
       setIsDisabled(false);
@@ -38,46 +35,51 @@ function DrinkInProgress() {
   };
 
   const saveRecipeDoneInLocalStorage = () => {
-    const localStorageAtual = localStorage.getItem('doneRecipes');
-    const localObject = JSON.parse(localStorageAtual)
-    console.log(localObject)
+    const localStorageAtual = localStorage.getItem("doneRecipes");
+    const localObject = JSON.parse(localStorageAtual);
+    console.log(localObject);
     let data = new Date();
     let dia = String(data.getDate()).padStart(2, "0");
     let mes = String(data.getMonth() + 1).padStart(2, "0");
     let ano = data.getFullYear();
     const dataAtual = dia + "/" + mes + "/" + ano;
-    if(localObject == null){
-      localStorage.setItem('doneRecipes', JSON.stringify([{
-        id: dataInProgress.idDrink,
-        type: 'drink',
-        category: dataInProgress.strCategory,
-        alcoholicOrNot: dataInProgress.strAlcoholic,
-        name:dataInProgress.strDrink,
-        image:dataInProgress.strDrinkThumb,
-        doneDate: dataAtual,
-        tags:dataInProgress.strTags,
-      } ]))  
+    if (localObject == null) {
+      localStorage.setItem(
+        "doneRecipes",
+        JSON.stringify([
+          {
+            id: dataInProgress.idDrink,
+            type: "drink",
+            category: dataInProgress.strCategory,
+            alcoholicOrNot: dataInProgress.strAlcoholic,
+            name: dataInProgress.strDrink,
+            image: dataInProgress.strDrinkThumb,
+            doneDate: dataAtual,
+            tags: dataInProgress.strTags,
+          },
+        ])
+      );
     }
-    if(localObject !== null){
-      const localStorageAtt = [...localObject, {
-        id: dataInProgress.idDrink,
-        type: 'drink',
-        category: dataInProgress.strCategory,
-        alcoholicOrNot: dataInProgress.strAlcoholic,
-        name:dataInProgress.stridDrink,
-        image:dataInProgress.strDrinkThumb,
-        doneDate: dataAtual,
-        tags:dataInProgress.strTags,
-      } ]
-      // console.log(dataInProgress.idMeal)
-      localStorage.setItem('doneRecipes', JSON.stringify(localStorageAtt))  
-
+    if (localObject !== null) {
+      const localStorageAtt = [
+        ...localObject,
+        {
+          id: dataInProgress.idDrink,
+          type: "drink",
+          category: dataInProgress.strCategory,
+          alcoholicOrNot: dataInProgress.strAlcoholic,
+          name: dataInProgress.stridDrink,
+          image: dataInProgress.strDrinkThumb,
+          doneDate: dataAtual,
+          tags: dataInProgress.strTags,
+        },
+      ];
+      localStorage.setItem("doneRecipes", JSON.stringify(localStorageAtt));
     }
-   
-  }
-  const addFav = () =>{
-    setLinkFav(true)
-  }
+  };
+  const addFav = () => {
+    setLinkFav(true);
+  };
 
   return (
     <div className="bg-stone-100 h-screen">

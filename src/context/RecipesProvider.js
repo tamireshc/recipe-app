@@ -1,11 +1,11 @@
-import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import recipesContext from './context';
-import { oneCharacterCheck, recipesNotFound } from './helpers';
+import React, { useState, useCallback } from "react";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+import recipesContext from "./context";
+import { oneCharacterCheck, recipesNotFound } from "./helpers";
 
 function RecipesProvider({ children }) {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [recipes, setRecipes] = useState(false);
@@ -18,12 +18,12 @@ function RecipesProvider({ children }) {
   const searchMeals = useCallback(
     async (inputSearch, selectedRadio) => {
       oneCharacterCheck(inputSearch, selectedRadio);
-      let apiUrl = '';
-      if (selectedRadio === 'ingredient') {
+      let apiUrl = "";
+      if (selectedRadio === "ingredient") {
         apiUrl = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputSearch}`;
-      } else if (selectedRadio === 'name') {
+      } else if (selectedRadio === "name") {
         apiUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputSearch}`;
-      } else if (selectedRadio === 'first-letter') {
+      } else if (selectedRadio === "first-letter") {
         apiUrl = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputSearch}`;
       }
       const getUrl = await fetch(apiUrl);
@@ -36,18 +36,18 @@ function RecipesProvider({ children }) {
       setMeals(response.meals);
       setRecipes(response.meals);
     },
-    [history],
+    [history]
   );
 
   const searchDrinks = useCallback(
     async (inputSearch, selectedRadio) => {
       oneCharacterCheck(inputSearch, selectedRadio);
-      let apiUrl = '';
-      if (selectedRadio === 'ingredient') {
+      let apiUrl = "";
+      if (selectedRadio === "ingredient") {
         apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputSearch}`;
-      } else if (selectedRadio === 'name') {
+      } else if (selectedRadio === "name") {
         apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputSearch}`;
-      } else if (selectedRadio === 'first-letter') {
+      } else if (selectedRadio === "first-letter") {
         apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputSearch}`;
       }
       const getUrl = await fetch(apiUrl);
@@ -55,12 +55,14 @@ function RecipesProvider({ children }) {
       if (response.drinks === null) {
         recipesNotFound();
       } else if (response.drinks.length === 1) {
-        response.drinks.map((drink) => history.push(`/drinks/${drink.idDrink}`));
+        response.drinks.map((drink) =>
+          history.push(`/drinks/${drink.idDrink}`)
+        );
       }
       setDrinks(response.drinks);
       setRecipes(response.drinks);
     },
-    [history],
+    [history]
   );
 
   const state = {
@@ -83,7 +85,7 @@ function RecipesProvider({ children }) {
   };
 
   return (
-    <recipesContext.Provider value={ state }>{children}</recipesContext.Provider>
+    <recipesContext.Provider value={state}>{children}</recipesContext.Provider>
   );
 }
 

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import './Header.css';
-import { useHistory } from 'react-router-dom';
-import SearchBar from '../SearchBar';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import "./Header.css";
+import { useHistory } from "react-router-dom";
+import SearchBar from "../SearchBar";
 
 function Header({ title, profileIcon, searchIcon }) {
   const [toggleInput, setToggleInput] = useState(false);
@@ -14,37 +14,36 @@ function Header({ title, profileIcon, searchIcon }) {
         <div className="profile-icon-container">
           <img
             className="cursor-icon hover:scale-105 hover:duration-500"
-            src={ profileIcon }
+            src={profileIcon}
             alt="profile"
             data-testid="profile-top-btn"
-            onClick={ () => history.push('/profile') }
+            onClick={() => history.push("/profile")}
             role="presentation"
           />
         </div>
         <div className="page-title-container">
           <h1
-          className='font-alice md:text-5xl text-3xl text-white hover:scale-105  hover:duration-500'
+            className="font-alice md:text-5xl text-3xl text-white hover:scale-105  hover:duration-500"
             data-testid="page-title"
           >
-            { title }
+            {title}
           </h1>
         </div>
         <div className="search">
-          {searchIcon
-          && <img
-            className="cursor-icon"
-            src={ searchIcon }
-            alt="search"
-            data-testid="search-top-btn"
-            onClick={ () => setToggleInput(!toggleInput) }
-            role="presentation"
-          />}
+          {searchIcon && (
+            <img
+              className="cursor-icon"
+              src={searchIcon}
+              alt="search"
+              data-testid="search-top-btn"
+              onClick={() => setToggleInput(!toggleInput)}
+              role="presentation"
+            />
+          )}
         </div>
       </header>
       <div className="search-input-container">
-        {
-          toggleInput ? <SearchBar setToggleInput={ setToggleInput } /> : null
-        }
+        {toggleInput ? <SearchBar setToggleInput={setToggleInput} /> : null}
       </div>
       <hr />
     </>
